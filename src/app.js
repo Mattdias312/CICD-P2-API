@@ -18,6 +18,7 @@ const User = require('./models/user');
 // Middlewares
 app.use(express.json());
 app.use(morgan('dev'));
+console.log('TOKEN:', process.env.LOGTAIL_SOURCE_TOKEN)
 app.use(betterstackLogger);
 app.use(requestLogger);
 
