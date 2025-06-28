@@ -42,7 +42,7 @@ exports.updateUser = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-
+//teste
 exports.deleteUser = async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id);
