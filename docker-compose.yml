@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    container_name: p2_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: p2db
+      POSTGRES_USER: p2user
+      POSTGRES_PASSWORD: p2pass
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: p2_api
+    restart: always
+    ports:
+      - '3000:3000'
+    environment:
+      - PORT=3000
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=p2db
+      - DB_USER=p2user
+      - DB_PASS=p2pass
+      - BETTERSTACK_URL=${BETTERSTACK_URL}
+    depends_on:
+      - db
+    command: npm start
+
+volumes:
+  pgdata:
+
